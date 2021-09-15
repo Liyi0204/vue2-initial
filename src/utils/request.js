@@ -14,6 +14,8 @@ const service = axios.create({
 })
 // 2.请求拦截器
 service.interceptors.request.use(config => {
+  console.log(config);
+  
   //发请求前做的一些处理，数据转化，配置请求头，设置token,设置loading等，根据需求去添加
   config.data = JSON.stringify(config.data); //数据转化,也可以使用qs转换
   config.headers = {
@@ -35,10 +37,11 @@ service.interceptors.request.use(config => {
 // 3.响应拦截器
 service.interceptors.response.use(response => {
   //接收到响应数据并成功后的一些共有的处理，关闭loading等
-
+  
   return response
 }, error => {
-
+  
+  
   /***** 接收到异常响应的处理开始 *****/
   if (error && error.response) {
     // 1.公共错误处理

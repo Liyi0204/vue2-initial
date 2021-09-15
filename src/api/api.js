@@ -6,6 +6,7 @@ import http from '../utils/http'
  */
 let resquest = "/testIp"
 
+
 // get请求
 export function getListAPI(params) {
   return http.get(`${resquest}/getList.json`, params)

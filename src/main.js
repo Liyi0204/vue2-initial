@@ -10,7 +10,6 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 new Vue({
-  axios,
   router,
   store,
   render: h => h(App)
