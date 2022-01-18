@@ -1,4 +1,4 @@
-# test01
+# cos-client
 
 ## Project setup
 ```
