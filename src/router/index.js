@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import userModule from "../module/userModule";
 
 Vue.use(VueRouter)
 
 const routes = [{
   path: '/',
-  name: 'logo',
+  name: 'login',
   component: () => import('../pages/Home.vue')
 }, ]
 
@@ -17,12 +18,12 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
-    if (sessionStorage.getItem("token")) {
-      next();
-    } else {
-      next({
-        path: "/"
-      });
+    if (userModule.checkToken()) {
+      if (userModule.checkToken()) {
+        next();
+      } else {
+        next({ path: "/login" });
+      }
     }
   } else {
     next();
