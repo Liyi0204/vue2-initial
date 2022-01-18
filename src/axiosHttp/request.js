@@ -1,11 +1,7 @@
 /****   request.js   ****/
 // 导入axios
 import axios from 'axios'
-import Cookie from 'js-cookie'
-// 使用element-ui Message做消息提醒
-import {
-  Message
-} from 'element-ui';
+import userModule from "../module/userModule"
 //1. 创建新的axios实例，
 const service = axios.create({
   // 公共接口--这里注意后面会讲
@@ -16,23 +12,8 @@ const service = axios.create({
 })
 // 2.请求拦截器
 service.interceptors.request.use(config => {
-  console.log(config);
-  //发请求前做的一些处理，数据转化，配置请求头，设置token,设置loading等，根据需求去添加
-  config.data = JSON.stringify(config.data); //数据转化,也可以使用qs转换
-  config.headers = {
-    //'Content-Type':'application/x-www-form-urlencoded' //配置请求头
-    'Content-Type': 'application/json'
-  }
-  //注意使用token的时候需要引入cookie方法或者用本地localStorage等方法，推荐js-cookie
-  const token = Cookie.get('token'); //这里取token之前，你肯定需要先拿到token,存一下
-  console.log(token);
-  if (token) {
-    config.params = {
-      'token': token
-    } //如果要求携带在参数中
-    config.headers.token = token; //如果要求携带在请求头中
-    // config.headers['Authorization'] = sessionStorage.getItem("token")
-  }
+  //   config.headers['Authorization'] = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDk4NDQ1MjM2MjMsInBheWxvYWQiOiJ7XCJ1c2VySWRcIjpcIjBkZjg3NDlkYWIyMzQzYzdiMTRmMmI1YWQ2NTdmNTg1XCIsXCJzaG9wSWRcIjpcImMzMGRiM2E0MjFmOTRiOTNhYzkxYTY0Yzk2ZGQ3ODYxXCIsXCJyb2xlXCI6XCJzeXNfYWRtaW4sY29uc3VtZXIsc2hvcF9hZG1pbixhY3Rpdml0eV92aWV3ZXJfMFwiLFwiZ2F0ZVwiOm51bGx9In0.Pc9LQPhep2SUGeeMEuGDRXfQdkibnTNpjokMzMagEDE'//userModule.token
+  config.headers['Authorization'] = userModule.token
   return config
 }, error => {
   Promise.reject(error)
@@ -45,28 +26,20 @@ service.interceptors.response.use(response => {
   return response
 }, error => {
 
-
-  /***** 接收到异常响应的处理开始 *****/
-  if (error && error.response) {
-    // 1.公共错误处理
-    // 2.根据响应码具体处理
-    error.message = error.response.data.msg
-
-  } else {
-    // 超时处理
-    if (JSON.stringify(error).includes('timeout')) {
-      Message.error('服务器响应超时，请刷新当前页')
+  let errMsg
+  if (error.response.data && error.response.data.msg) {
+    if (error.response.data.code === 403 && error.response.data.msg === '未登录') {
+      return window.location.href = "/#/login"
     }
-    error.message = '连接服务器失败'
-    console.log(error);
+    errMsg = error.response.data.msg
+  } else if (error.response.status === 500) {
+    errMsg = '无法响应的服务'
   }
-  if (error.message) {
-    Message.error(error.message)
-  }
-  /***** 处理结束 *****/
-  //如果不需要错误处理，以上的处理过程都可省略
-  //return Promise.resolve(error.response)
-  return Promise.reject(error.response)
+  Vue.prototype.$message({
+    message: errMsg,
+    type: 'error'
+  })
+  return Promise.reject(error);
 })
 //4.导入文件
 export default service

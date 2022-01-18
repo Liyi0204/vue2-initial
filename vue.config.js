@@ -31,7 +31,7 @@ module.exports = {
             changeOrigin: true,
             ws: true,//websocket支持
             secure: false,
-            logLevel:'debug',
+            // logLevel:'debug',
             pathRewrite: {
                 "^/testIp": "http://0.0.0.0:8085"
             }
