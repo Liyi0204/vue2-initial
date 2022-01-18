@@ -3,28 +3,30 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'logo',
-    component: () => import( '../pages/login.vue')
-  },
-  {
-    path: '/success',
-    name: 'success',
-    component: () => import( '../pages/success')
-  },
-  {
-    path: '/error',
-    name: 'error',
-    component: () => import( '../pages/error')
-  }
-]
+const routes = [{
+  path: '/',
+  name: 'logo',
+  component: () => import('../pages/Home.vue')
+}, ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    if (sessionStorage.getItem("token")) {
+      next();
+    } else {
+      next({
+        path: "/"
+      });
+    }
+  } else {
+    next();
+  }
+});
 
 export default router
