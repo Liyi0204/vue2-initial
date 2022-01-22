@@ -1,13 +1,13 @@
 <template>
   <a-layout class="pageAll">
-    <a-layout-sider breakpoint="sm" collapsed-width="80" :trigger='null' :collapsed="collapsed"  collapsible  >
+    <a-layout-sider breakpoint="sm" collapsed-width="80" :trigger='null' :collapsed="collapsed" collapsible>
       <!-- theme="light" -->
       <div class="mySider">
         <div class="sider-top">
           <div class="Navlogo">
             <img :class="collapsed?'img_small':'img_medium'" src='../assets/images/logo/logo_01.png'>
           </div>
-          <a-menu mode="inline" theme="dark" :inlineCollapsed="collapsed">
+          <a-menu mode="inline" :inlineCollapsed="collapsed">
             <template v-for="nav in NavBarData">
               <a-sub-menu v-if='nav.Children' :key="nav.MenuID">
                 <span slot="title">
@@ -32,7 +32,7 @@
           </a-menu>
         </div>
         <div class="sider-bottom">
-          <a-menu mode="inline" theme="dark" :inlineCollapsed="collapsed">
+          <a-menu mode="inline" :inlineCollapsed="collapsed">
             <a-menu-item>
               <a-icon type="bell" />
               <span>通知</span>
@@ -44,7 +44,7 @@
               <!-- <router-link :to="nav.MenuPath"></router-link> -->
             </a-menu-item>
           </a-menu>
-          <div class="openMenu" @click="() => (collapsed = !collapsed)" >
+          <div class="openMenu" @click="() => (collapsed = !collapsed)">
             <a-icon :type="collapsed ? 'right' : 'left'" class="triggerIcon headTool" />
           </div>
         </div>
@@ -180,7 +180,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .pageAll {
   width: 100vw;
   height: 100vh;
@@ -207,26 +207,44 @@ export default {
     width: 100%;
     height: 100%;
     display: flex;
+    background: @primary-color;
     flex-direction: column;
     justify-content: space-between;
+    .sider-top{
+      padding: 0;
+      margin: 0;
+      /deep/.ant-menu-inline{
+        border-right: 1px solid @primary-color;
+      }
+      /deep/.ant-menu-vertical{
+        border-right: 1px solid @primary-color;
+      }
+    }
     .sider-bottom {
-      .openMenu{
+      .openMenu {
         width: 100%;
         height: 50px;
-        background: #002140;
+        background: @menu-swith-bg;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        margin: 0;
       }
       .triggerIcon {
-      font-size: 14px;
-      line-height: 100%;
-      cursor: pointer;
-      color: #ffffff;
-      transition: color 0.3s;
-    }
+        font-size: 14px;
+        line-height: 100%;
+        cursor: pointer;
+        color: @menu-item-color;
+        transition: color 0.3s;
+      }
+      /deep/.ant-menu-inline{
+        border-right: 1px solid @primary-color;
+      }
+      /deep/.ant-menu-vertical{
+        border-right: 1px solid @primary-color;
+      }
     }
   }
   .pageHead {
@@ -258,7 +276,7 @@ export default {
       height: calc(100vh - 64px - 20px);
       overflow-y: auto;
       &.hasTab {
-        height: calc(100vh - 64px - 20px - 26px);
+        height: calc(100vh - 8px);
       }
     }
   }

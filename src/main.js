@@ -7,10 +7,8 @@ import Antd from 'ant-design-vue'
 // import ElementUI from "element-ui"
 import Global from 'ASSETS/js/global.js' //全局封装方法
 
-import 'ant-design-vue/dist/antd.css'
-// import "element-ui/lib/theme-chalk/index.css"
-
-
+import 'ant-design-vue/dist/antd.less'
+import 'ASSETS/css/config.less'
 Vue.config.productionTip = false
 Vue.prototype.$global = Global;
 Vue.prototype.$store = store;

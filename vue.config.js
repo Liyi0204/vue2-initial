@@ -14,6 +14,17 @@ module.exports = {
       },
     },
   },
+
+  css: {
+    loaderOptions: {
+      less: {
+        lessOptions: {
+          javascriptEnabled: true,
+        },
+      },
+    },
+  },
+
   devServer: {
     overlay: { // 让浏览器 overlay 同时显示警告和错误
       warnings: true,
@@ -26,16 +37,23 @@ module.exports = {
     hotOnly: true, // 热更新
     // proxy: 'http://localhost:8080'   // 配置跨域处理,只有一个代理
     proxy: { //配置多个跨域
-        "/testIp": {
-            target: 'http://api.ciit.tech/webapi',
-            changeOrigin: true,
-            ws: true,//websocket支持
-            secure: false,
-            // logLevel:'debug',
-            pathRewrite: {
-                "^/testIp": "http://0.0.0.0:8085"
-            }
+      "/testIp": {
+        target: 'http://api.ciit.tech/webapi',
+        changeOrigin: true,
+        ws: true, //websocket支持
+        secure: false,
+        // logLevel:'debug',
+        pathRewrite: {
+          "^/testIp": "http://0.0.0.0:8085"
         }
+      }
     }
-}
+  },
+
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'less',
+      patterns: [path.resolve(__dirname, './src/assets/css/config.less')]
+    }
+  }
 };

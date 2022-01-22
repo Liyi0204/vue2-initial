@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import userModule from "../module/userModule";
 import store from '@/vuex/store'; //全局仓储
-import Global from 'ASSETS/js/global.js'; //全局封装方法
 import SomRoute from "./som-route";
 
 Vue.use(VueRouter)
@@ -24,9 +23,10 @@ const routes = [{
     component: () => import('PAGES/index.vue'),
     children: [{
         path: '/',
-        name: 'HomeWdom',
+        name: 'HelloWdom',
         meta: {
-          title: 'HomeWdom',
+          title: 'HelloWdom',
+          requireAuth: true
         },
         component: () => import('COMPS/HelloWdom.vue'),
       },
@@ -44,24 +44,24 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     if (userModule.checkToken()) {
-      if (userModule.checkToken()) {
-        if (to.name != 'Login') {
-          store.commit('pageJump', to)
-        }
-        next();
-      } else {
-        next({
-          path: "/login"
-        });
-        Global.toast('页面路径无效')
+      if (to.name != 'Login') {
+        store.commit('pageJump', to)
       }
+      next();
+    } else {
+      next({
+        path: "/login"
+      });
     }
+
   } else {
     if (to.name != 'Login') {
       store.commit('pageJump', to)
     }
     if (!to.meta.title) {
-      Global.toast('页面路径无效');
+      Vue.prototype.$message.error(
+        '路径失效，请联系管理员'
+      )
       return
     }
     next();

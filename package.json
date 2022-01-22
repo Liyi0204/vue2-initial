@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "production-build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "production-build": "vue-cli-service build",
     "test-build": "vue-cli-service build --mode test"
   },
   "dependencies": {
-    "ant-design-vue": "^1.6.4",
+    "ant-design-vue": "^1.7.8",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.6",
@@ -26,8 +26,12 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "antd-theme-generator": "^1.2.6",
+    "less": "^2.7.3",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
+    "style-resources-loader": "^1.5.0",
+    "vue-cli-plugin-style-resources-loader": "~0.1.5",
     "vue-template-compiler": "^2.6.11"
   }
 }

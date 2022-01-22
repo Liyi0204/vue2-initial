@@ -38,10 +38,9 @@ Axios.interceptors.response.use((response) => {
   } else if (error.response.status === 500) {
     errMsg = '无法响应的服务'
   }
-  Vue.prototype.$message({
-    message: errMsg,
-    type: 'error'
-  })
+  Vue.prototype.$message.error(
+    errMsg
+  )
   return Promise.reject(error);
 });
 
@@ -63,10 +62,9 @@ export default {
     return new Promise((resolve, reject) => {
       Axios.post(url, params).then((res) => {
         if (res.status === 200 && showMessage) {
-          Vue.prototype.$message({
-            message: '操作成功',
-            type: 'success'
-          })
+          Vue.prototype.$message.success(
+            '操作成功'
+          )
         }
         resolve(res.data)
       }).catch((err) => {
@@ -77,10 +75,9 @@ export default {
   PUT(url, params, showMessage) {
     return new Promise((resolve, reject) => {
       Axios.put(url, params).then((res) => {
-        Vue.prototype.$message({
-          message: '修改成功',
-          type: 'success'
-        })
+        Vue.prototype.$message.success(
+          '修改成功'
+        )
         resolve(res.data)
       }).catch((err) => {
         reject(err)
@@ -91,10 +88,10 @@ export default {
     return new Promise((resolve, reject) => {
       Axios.delete(url, { data: params }).then((res) => {
         if (res.status === 200) {
-          Vue.prototype.$message({
-            message: '删除成功',
-            type: 'success'
-          })
+          Vue.prototype.$message.success(
+            '删除成功'
+          )
+          
         }
         resolve(res.data)
       }).catch((err) => {
