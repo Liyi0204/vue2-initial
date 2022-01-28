@@ -1,6 +1,5 @@
 <template>
-  <div id="login">
-    <a-layout>
+    <a-layout id="login">
       <a-layout-header class="login-header">
         WDOM
       </a-layout-header>
@@ -35,12 +34,11 @@
       </a-layout-content>
       <a-layout-footer class="login-footer">Copyright 2014-2020 ©厦门云栈网络科技有限公司</a-layout-footer>
     </a-layout>
-  </div>
 </template>
 
 <script>
 import loginServe from "API/login/loginServe";
-import userModule  from '@/module/userModule'
+import userModule from "@/module/userModule";
 export default {
   data() {
     return {
@@ -62,7 +60,7 @@ export default {
         .login(this.accountLogin.account, this.accountLogin.passWord)
         .then((data) => {
           console.log(data);
-          this.loginSuccessfully(data)
+          this.loginSuccessfully(data);
         });
     },
     loginSuccessfully(res) {
