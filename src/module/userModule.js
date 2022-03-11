@@ -1,41 +1,58 @@
 import Vue from 'vue'
+import cookies from 'js-cookie'
 
+const LOGIN_URL = process.env.VUE_APP_LOGIN_URL
+const Domain_URL = process.env.VUE_APP_Domain_URL
 export default new Vue({
   data() {
     return {
       token: '',
       PPUser: {},
-      // localStorage key
+      loginPageUrl: LOGIN_URL, //中台地址,
       TOKEN_KEY: 'ccstid',
-      PPUSER_KEY: 'PPUser'
+      PPUSER_KEY: 'PPUser',
     }
   },
   created() {
-    this.token = sessionStorage.getItem(this.TOKEN_KEY);
-    this.PPUser = sessionStorage.getItem(this.PPUSER_KEY);
+    this.token = cookies.get('AuthToken', {
+      domain: Domain_URL
+    });
+    this.PPUser = cookies.get('PPUser', {
+      domain: Domain_URL
+    });
   },
   methods: {
-    setSessionToken(token) {
-      sessionStorage.setItem(this.TOKEN_KEY, token);
-      this.token = token
+    setCookiesToken(token) {
+      cookies.set('AuthToken', token, {
+        expires: 7,
+        domain: Domain_URL
+      });
+      this.token = token;
     },
     setPPUser(PPUser) {
-      sessionStorage.setItem(this.PPUSER_KEY, PPUser);
-      this.PPUser = PPUser
+      cookies.set('PPUser', PPUser, {
+        expires: 7,
+        domain: Domain_URL
+      });
+      this.PPUser = PPUser;
     },
-    removeSessionToken() {
-      sessionStorage.removeItem(this.TOKEN_KEY);
-      this.token = ''
+    removeCookiesToken() {
+      cookies.remove('AuthToken', {
+        domain: Domain_URL
+      });
+      this.token = '';
     },
     removePPUser() {
-      sessionStorage.removeItem(this.PPUSER_KEY);
-      this.PPUser = {}
+      cookies.remove('PPUser', {
+        domain: Domain_URL
+      });
+      this.PPUser = {};
     },
     checkToken() {
       // 校验token
-      let sessionToken = this.token;
-      let hasToken = !(sessionToken == undefined || sessionToken == null || sessionToken == '');
-      //let hasToken = !sessionToken //理论上酱紫写就可以了ly
+      let CookiesToken = this.token;
+      let hasToken = !(CookiesToken == undefined || CookiesToken == null || CookiesToken == '');
+      //let hasToken = !CookiesToken //理论上酱紫写就可以了ly
       return hasToken
     }
   }

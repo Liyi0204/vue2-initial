@@ -5,7 +5,7 @@ import store from './vuex/store'
 import axios from "axios"
 import Antd from 'ant-design-vue'
 // import ElementUI from "element-ui"
-import Global from 'ASSETS/js/global.js' //全局封装方法
+import Global from 'ASSETS/js/global.js' //全局变量、方法
 
 import 'ant-design-vue/dist/antd.less'
 import 'ASSETS/css/config.less'

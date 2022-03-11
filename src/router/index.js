@@ -6,14 +6,7 @@ import SomRoute from "./som-route";
 
 Vue.use(VueRouter)
 
-const routes = [{
-    path: '/login',
-    name: 'Login',
-    meta: {
-      title: '登录',
-    },
-    component: () => import('PAGES/login.vue'),
-  },
+const routes = [
   {
     path: '/',
     name: 'index',
@@ -49,9 +42,10 @@ router.beforeEach((to, from, next) => {
       }
       next();
     } else {
-      next({
-        path: "/login"
-      });
+      // next({
+      //   path: "/login"
+      // });
+      window.location.href = userModule.loginPageUrl;
     }
 
   } else {

@@ -32,7 +32,7 @@ Axios.interceptors.response.use((response) => {
   let errMsg
   if (error.response.data && error.response.data.msg) {
     if (error.response.data.code === 403 && error.response.data.msg === '未登录') {
-      return window.location.href = "/#/login"
+      return window.location.href = userModule.loginPageUrl
     }
     errMsg = error.response.data.msg
   } else if (error.response.status === 500) {
