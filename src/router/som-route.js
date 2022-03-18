@@ -7,12 +7,11 @@ export default {
   name: 'som',
   component: frame,
   // children: [{
-  //     path: 'kk',
-  //     name: 'kk',
+  //     path: 'orderList',
   //     meta: {
-  //       title: 'kk',
+  //       title: '订单列表',
   //     },
-  //     component: () => import('COMPS/kk.vue')
+  //     component: () => import('PAGES/som/order/orderList.vue')
   //   }
 
   // ]

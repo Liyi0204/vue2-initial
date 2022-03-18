@@ -5,7 +5,7 @@
       <div class="mySider">
         <div class="sider-top">
           <div class="Navlogo">
-            <img :class="collapsed?'img_small':'img_medium'" src='../assets/images/logo/logo_01.png'>
+            <img :class="collapsed?'img_small':'img_medium'" src='../assets/images/logo/logo_02.png'>
           </div>
           <a-menu mode="inline" :inlineCollapsed="collapsed">
             <template v-for="nav in NavBarData">
@@ -32,15 +32,20 @@
           </a-menu>
         </div>
         <div class="sider-bottom">
-          <a-menu mode="inline" :inlineCollapsed="collapsed">
-            <a-menu-item>
+          <a-menu mode="inline" @click="clickBottomMenu" :inlineCollapsed="collapsed">
+            <!-- <a-menu-item>
               <a-icon type="bell" />
               <span>通知</span>
-              <!-- <router-link :to="nav.MenuPath"></router-link> -->
+              <router-link :to="nav.MenuPath"></router-link>
             </a-menu-item>
             <a-menu-item>
               <a-icon type="user" />
               <span>user</span>
+              <router-link :to="nav.MenuPath"></router-link>
+            </a-menu-item> -->
+            <a-menu-item key="1">
+              <a-icon type=" " class="myIcon yibiaopanIcon" :style="{backgroundImage:'url('+ require('../assets/images/icon/logout.png')+')'}" />
+              <span>退出登录</span>
               <!-- <router-link :to="nav.MenuPath"></router-link> -->
             </a-menu-item>
           </a-menu>
@@ -57,10 +62,10 @@
       </a-layout-header> -->
       <a-layout-content class="pageCont">
         <a-spin tip="Loading..." :spinning="loading">
-          <a-tabs v-show='isOpenRemember' size="small" class="pgTab" :activeKey="actPage" hide-add type="editable-card" @tabClick="changePage" @edit="onDelPage">
+          <!-- <a-tabs v-show='isOpenRemember' size="small" class="pgTab" :activeKey="actPage" hide-add type="editable-card" @tabClick="changePage" @edit="onDelPage">
             <a-tab-pane v-for="(pg,pgInd) in pageTabList" :key="pgInd" :tab="pg.title" :closable="pgInd!=0">
             </a-tab-pane>
-          </a-tabs>
+          </a-tabs> -->
           <router-view class="moduleAll" :class="{hasTab:isOpenRemember}" />
         </a-spin>
       </a-layout-content>
@@ -72,7 +77,8 @@
 </template>
 
 <script>
-import menuRec from "COMPS/menuRec";
+import menuRec from "COMPS/widgets/menuRec";
+import loginService from "API/foundation/loginService";
 import { mapState } from "vuex";
 export default {
   computed: {
@@ -176,6 +182,22 @@ export default {
       let endKey = e.pop();
       this.openNavList = endKey ? [endKey] : [];
     },
+    clickBottomMenu(e) {
+      if (e.key == "1") {
+        this.$confirm({
+          title: "退出登录?",
+          okText: "确认",
+          cancelText: "取消",
+          // content: 'When clicked the OK button, this dialog will be closed after 1 second',
+          onOk() {
+            loginService.doLogout().then((data) => {
+              window.location.reload();
+            });
+          },
+          onCancel() {},
+        });
+      }
+    },
   },
 };
 </script>
@@ -192,12 +214,12 @@ export default {
     width: 100%;
     height: 70px;
     .img_medium {
-      width: 50px;
-      height: 50px;
+      width: 40%;
+      height: 40%;
     }
     .img_small {
-      width: 36px;
-      height: 36px;
+      width: 60%;
+      height: 20%;
     }
     .anticon {
       margin-right: 5px;
@@ -210,13 +232,13 @@ export default {
     background: @primary-color;
     flex-direction: column;
     justify-content: space-between;
-    .sider-top{
+    .sider-top {
       padding: 0;
       margin: 0;
-      /deep/.ant-menu-inline{
+      /deep/.ant-menu-inline {
         border-right: 1px solid @primary-color;
       }
-      /deep/.ant-menu-vertical{
+      /deep/.ant-menu-vertical {
         border-right: 1px solid @primary-color;
       }
     }
@@ -239,10 +261,10 @@ export default {
         color: @menu-item-color;
         transition: color 0.3s;
       }
-      /deep/.ant-menu-inline{
+      /deep/.ant-menu-inline {
         border-right: 1px solid @primary-color;
       }
-      /deep/.ant-menu-vertical{
+      /deep/.ant-menu-vertical {
         border-right: 1px solid @primary-color;
       }
     }
@@ -257,8 +279,9 @@ export default {
   }
   .pageCont {
     overflow: hidden;
-    padding: 10px;
+    // padding: 10px;
     height: 100%;
+    background: #ffffff;
     .pgTab/deep/ {
       .ant-tabs-bar {
         margin: 0;
@@ -272,7 +295,7 @@ export default {
     }
     .moduleAll {
       width: 100%;
-      background-color: #ffffff;
+      background-color: rgba(247, 247, 247, 1);
       height: calc(100vh - 64px - 20px);
       overflow-y: auto;
       &.hasTab {

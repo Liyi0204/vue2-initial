@@ -29,5 +29,8 @@ export default {
         // canClose:obj.path!='/Home'
       })
     }
+  },
+  setUserInfo(state, userInfo) {
+    state.userInfo = userInfo
   }
 }
