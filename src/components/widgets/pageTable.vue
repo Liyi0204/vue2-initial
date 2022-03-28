@@ -3,7 +3,7 @@
     <el-row type="flex" justify="center">
       <el-col :span="24">
         <template v-if="selection === 'single'">
-          <el-table ref="pageTable" :data="tableData" :border="border" :show-header="showHeader" @current-change="handleRowChange" @cell-dblclick="cellDblclick" @row-contextmenu="rowContextmenu" @row-click="rowClick" :max-height="height" :header-cell-style="headerCellStyle" :height="fixHeight" :width="fixWidth" :cell-style="cellStyle" :row-style="rowStyle" :row-class-name="tableRowClassName" :cell-class-name="tableCellClassName" @expand-change="expandChange" v-loading="tableLoading" element-loading-text="拼命加载中..." :stripe="stripe" highlight-current-row>
+          <el-table ref="pageTable" :data="tableData" :border="border" :show-header="showHeader" @current-change="handleRowChange" @cell-dblclick="cellDblclick" @row-contextmenu="rowContextmenu" @row-click="rowClick" :max-height="height" :header-cell-style="tableHeaderStyle" :height="fixHeight" :width="fixWidth" :cell-style="cellStyle" :row-style="rowStyle" :row-class-name="tableRowClassName" :cell-class-name="tableCellClassName" @expand-change="expandChange" v-loading="tableLoading" element-loading-text="拼命加载中..." :stripe="stripe" highlight-current-row>
             <!-- <el-table-column v-if="showIndex" type="index" width="50"></el-table-column> -->
             <el-table-column v-if="showIndex" label="序号" width="100">
               <template slot-scope="scope">
@@ -18,7 +18,7 @@
           </el-table>
         </template>
         <template v-else>
-          <el-table ref="pageTable" :show-header="showHeader" :data="tableData" :border="border" @selection-change="tableCheckChange" @cell-dblclick="cellDblclick" @row-contextmenu="rowContextmenu" @cell-click="cellClick" @row-click="rowClick" :max-height="height" :header-cell-style="headerCellStyle" :height="fixHeight" :width="fixWidth" :cell-style="cellStyle" :row-class-name="tableRowClassName" :cell-class-name="tableCellClassName" @expand-change="expandChange" v-loading="tableLoading" element-loading-text="拼命加载中..." :stripe="stripe">
+          <el-table ref="pageTable" :highlight-current-row='highlightRow' :show-header="showHeader" :data="tableData" :border="border" @selection-change="tableCheckChange" @cell-dblclick="cellDblclick" @row-contextmenu="rowContextmenu" @cell-click="cellClick" @row-click="rowClick" :max-height="height" :header-cell-style="tableHeaderStyle" :height="fixHeight" :width="fixWidth" :cell-style="cellStyle" :row-class-name="tableRowClassName" :cell-class-name="tableCellClassName" @expand-change="expandChange" v-loading="tableLoading" element-loading-text="拼命加载中..." :stripe="stripe">
             <el-table-column v-if="selection === 'multi'" type="selection" :fixed='showIndexFixed' :selectable="checkboxSelect" width="50"></el-table-column>
             <!-- <el-table-column v-if="showIndex" type="index" width="50"></el-table-column> -->
             <el-table-column v-if="showIndex" label="序号" width="100">
@@ -89,12 +89,6 @@ export default {
       type: Function,
       default: () => {},
     },
-    headerCellStyle: {
-      type: Object,
-      default: () => {
-        return {};
-      },
-    },
     checkboxSelect: {
       type: Function,
       default: () => {
@@ -126,6 +120,11 @@ export default {
       type: Boolean,
       default: true,
     },
+    //多选状态下  是否需要高亮当前行
+    highlightRow:{
+      type: Boolean,
+      default: false,
+    },
     isShadow: {
       type: Boolean,
       default: true,
@@ -136,6 +135,9 @@ export default {
       selectedRows: [],
       tableLoading: false,
       clearSelective: true /*是否需要重新刷新选择*/,
+      tableHeaderStyle: {
+        background: "rgba(243, 243, 243, 1)",
+      },
     };
   },
   watch: {

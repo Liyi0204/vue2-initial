@@ -90,59 +90,59 @@ export default {
       collapsed: true,
       openNavList: [],
       NavBarData: [
+        // {
+        //   MenuTitle: "Example",
+        //   Icon: "deployment-unit",
+        //   MenuID: 100,
+        //   Children: [
+        //     {
+        //       MenuID: 101,
+        //       MenuTitle: "Option 5",
+        //       Icon: "deployment-unit",
+        //       MenuPath: "/HomeVue",
+        //       Children: [
+        //         {
+        //           MenuID: 200,
+        //           MenuTitle: "模块",
+        //           MenuPath: "/HomeVue",
+        //           Icon: "deployment-unit",
+        //           Children: [
+        //             {
+        //               MenuID: 202,
+        //               MenuTitle: "模块12",
+        //               MenuPath: "/HomeVue",
+        //               Icon: "deployment-unit",
+        //             },
+        //           ],
+        //         },
+        //       ],
+        //     },
+        //     {
+        //       MenuID: 102,
+        //       MenuTitle: "模块二",
+        //       Icon: "deployment-unit",
+        //       MenuPath: "/lo",
+        //     },
+        //     {
+        //       MenuID: 103,
+        //       MenuTitle: "实例页面",
+        //       MenuPath: "/ExamplePage",
+        //       Icon: "deployment-unit",
+        //     },
+        //   ],
+        // },
         {
-          MenuTitle: "Example",
-          Icon: "deployment-unit",
-          MenuID: 100,
-          Children: [
-            {
-              MenuID: 101,
-              MenuTitle: "Option 5",
-              Icon: "deployment-unit",
-              MenuPath: "/HomeVue",
-              Children: [
-                {
-                  MenuID: 200,
-                  MenuTitle: "模块",
-                  MenuPath: "/HomeVue",
-                  Icon: "deployment-unit",
-                  Children: [
-                    {
-                      MenuID: 202,
-                      MenuTitle: "模块12",
-                      MenuPath: "/HomeVue",
-                      Icon: "deployment-unit",
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              MenuID: 102,
-              MenuTitle: "模块二",
-              Icon: "deployment-unit",
-              MenuPath: "/lo",
-            },
-            {
-              MenuID: 103,
-              MenuTitle: "实例页面",
-              MenuPath: "/ExamplePage",
-              Icon: "deployment-unit",
-            },
-          ],
-        },
-        {
-          MenuTitle: "公司管理",
-          Icon: "user",
+          MenuTitle: "订单",
+          Icon: "bar-chart",
           MenuID: 1,
-          MenuPath: "/som/kk",
+          MenuPath: "/",
         },
-        {
-          MenuTitle: "数据管理",
-          Icon: "hdd",
-          MenuID: 5,
-          MenuPath: "/som",
-        },
+        // {
+        //   MenuTitle: "数据管理",
+        //   Icon: "hdd",
+        //   MenuID: 5,
+        //   MenuPath: "/som",
+        // },
       ],
     };
   },
@@ -229,7 +229,7 @@ export default {
     width: 100%;
     height: 100%;
     display: flex;
-    background: @primary-color;
+    background: @menu-bg;
     flex-direction: column;
     justify-content: space-between;
     .sider-top {
@@ -239,7 +239,7 @@ export default {
         border-right: 1px solid @primary-color;
       }
       /deep/.ant-menu-vertical {
-        border-right: 1px solid @primary-color;
+        border-right: 1px solid @menu-bg;
       }
     }
     .sider-bottom {
@@ -265,7 +265,7 @@ export default {
         border-right: 1px solid @primary-color;
       }
       /deep/.ant-menu-vertical {
-        border-right: 1px solid @primary-color;
+        border-right: 1px solid @menu-bg;
       }
     }
   }
